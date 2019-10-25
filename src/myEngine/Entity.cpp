@@ -14,20 +14,26 @@ Entity::~Entity()
 
 std::shared_ptr<Application> Entity::getApplication()
 {
-
+	return application.lock();
 }
 
 void Entity::tick()
 {
-
+	for (std::list < std::shared_ptr<Component>>::iterator i = components.begin(); i != components.end(); ++i)
+	{
+		if ((*i)->began == false)
+		{
+			(*i)->onBegin();
+			(*i)->began = true;
+		}
+		(*i)->onTick();
+	}
 }
 
 void Entity::display()
 {
-
-}
-
-std::shared_ptr<Component> Entity::addComponent()
-{
-
+	for (std::list<std::shared_ptr<Component>>::iterator i = components.begin(); i != components.end(); ++i)
+	{
+		(*i)->onDisplay();
+	}
 }

@@ -15,11 +15,11 @@ Component::~Component()
 
 std::shared_ptr<Entity> Component::getEntity()
 {
-
+	return entity.lock();
 }
 std::shared_ptr<Application> Component::getApplication()
 {
-
+	return getEntity()->getApplication();
 }
 
 void Component::onInit()
