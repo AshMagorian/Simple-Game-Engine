@@ -4,6 +4,7 @@
 #include <myEngine/Component.h>
 #include <myEngine/Entity.h>
 
+
 class TriangleRenderer : public Component
 {
 	void onDisplay()
@@ -12,7 +13,7 @@ class TriangleRenderer : public Component
 	}
 };
 
-int main()
+int main(int argc, char *argv[])
 {
 	std::shared_ptr<Application> application = application->init();
 
@@ -20,6 +21,7 @@ int main()
 	std::shared_ptr<TriangleRenderer> triangle1 = entity->addComponent<TriangleRenderer>();
 
 	application->run();
+
 
 
   return 0;

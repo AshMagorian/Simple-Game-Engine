@@ -1,6 +1,10 @@
 #include <memory>
 #include <list>
 
+#include <GL/glew.h>
+#include <SDL2/SDL.h>
+
+
 class Entity;
 
 class Application
@@ -19,4 +23,6 @@ private:
 	bool running;
 	std::list<std::shared_ptr<Entity>> entities;
 	std::weak_ptr<Application> self;
+
+	SDL_Window *window;
 };
