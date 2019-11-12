@@ -20,9 +20,9 @@ private:
 
 public:
 	VertexArray();
-	void setBuffer(std::string attribute, VertexBuffer * buffer);
-	int getVertexCount();
-	GLuint getId();
+	void SetBuffer(std::string attribute, VertexBuffer * buffer);
+	int GetVertexCount();
+	GLuint GetId();
 
 };
 #endif

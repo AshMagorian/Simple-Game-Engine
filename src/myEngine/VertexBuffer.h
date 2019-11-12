@@ -1,3 +1,6 @@
+#ifndef VERTEXBUFFER_H
+#define VERTEXBUFFER_H
+
 #include <glm/glm.hpp>
 #include <vector>
 #include <GL/glew.h>
@@ -21,3 +24,5 @@ public:
 	int GetDataSize() { return data.size(); }
 	GLuint GetId();
 };
+
+#endif

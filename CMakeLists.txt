@@ -33,6 +33,10 @@ add_library(myEngine
 	src/myEngine/VertexArray.cpp
 	src/myEngine/VertexBuffer.h
 	src/myEngine/VertexArray.h
+	src/myEngine/ShaderProgram.h
+	src/myEngine/ShaderProgram.cpp
+	src/myEngine/Renderer.h
+	src/myEngine/Renderer.cpp
 
 )	
 

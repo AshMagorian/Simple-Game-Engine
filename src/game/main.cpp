@@ -22,7 +22,5 @@ int main(int argc, char *argv[])
 
 	application->run();
 
-
-
   return 0;
 }

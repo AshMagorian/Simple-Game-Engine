@@ -13,7 +13,7 @@ VertexArray::VertexArray()
 
 }
 
-void VertexArray::setBuffer(std::string attribute, VertexBuffer * buffer)
+void VertexArray::SetBuffer(std::string attribute, VertexBuffer * buffer)
 {
 	if (attribute == "in_Position")
 	{
@@ -31,7 +31,7 @@ void VertexArray::setBuffer(std::string attribute, VertexBuffer * buffer)
 	dirty = true;
 }
 
-int VertexArray::getVertexCount()
+int VertexArray::GetVertexCount()
 {
 	if (!buffers.at(0))
 	{
@@ -41,7 +41,7 @@ int VertexArray::getVertexCount()
 
 }
 
-GLuint VertexArray::getId()
+GLuint VertexArray::GetId()
 {
 	if (dirty)
 	{
