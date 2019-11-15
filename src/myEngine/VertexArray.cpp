@@ -13,7 +13,7 @@ VertexArray::VertexArray()
 
 }
 
-void VertexArray::SetBuffer(std::string attribute, VertexBuffer * buffer)
+void VertexArray::SetBuffer(std::string attribute, std::shared_ptr<VertexBuffer> buffer)
 {
 	if (attribute == "in_Position")
 	{

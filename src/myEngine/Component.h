@@ -1,3 +1,6 @@
+#ifndef COMPONENT_H
+#define COMPONENT_H
+
 #include <memory>
 
 class Entity;
@@ -25,3 +28,4 @@ private:
 	virtual void onDisplay();
 
 };
+#endif

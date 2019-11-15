@@ -101,7 +101,7 @@ ShaderProgram::ShaderProgram(std::string vert, std::string frag)
 	glDeleteShader(fragmentShaderId);
 }
 
-void ShaderProgram::Draw(VertexArray *vertexArray)
+void ShaderProgram::Draw(std::shared_ptr<VertexArray> vertexArray)
 {
 	// Instruct OpenGL to use our shader program and our VAO
 	glUseProgram(id);

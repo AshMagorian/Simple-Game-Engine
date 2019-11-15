@@ -17,7 +17,7 @@ private:
 public:
 	ShaderProgram(std::string vert, std::string frag);
 
-	void Draw(VertexArray *vertexArray);
+	void Draw(std::shared_ptr<VertexArray> vertexArray);
 
 	void SetUniform(std::string uniform, glm::vec3 value);
 	void SetUniform(std::string uniform, glm::vec4 value);

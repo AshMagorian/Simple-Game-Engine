@@ -14,15 +14,15 @@ public:
 
 	std::shared_ptr<Application> getApplication();
 
-	template <typename T>
-	std::shared_ptr<T> addComponent()
+	template <typename T, typename... A>
+	std::shared_ptr<T> addComponent(A... args)
 	{
 		std::shared_ptr<T> rtn = std::make_shared<T>();
 		rtn->entity = self;
 		rtn->began = false;
 		components.push_back(rtn);
 
-		rtn->onInit();
+		rtn->onInit(args...);
 
 		return rtn;
 	}

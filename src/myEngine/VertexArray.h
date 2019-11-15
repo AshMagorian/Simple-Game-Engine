@@ -15,12 +15,12 @@ class VertexArray
 {
 private:
 	GLuint id;
-	std::vector<VertexBuffer *> buffers;
+	std::vector<std::shared_ptr<VertexBuffer>> buffers;
 	bool dirty;
 
 public:
 	VertexArray();
-	void SetBuffer(std::string attribute, VertexBuffer * buffer);
+	void SetBuffer(std::string attribute, std::shared_ptr<VertexBuffer> buffer);
 	int GetVertexCount();
 	GLuint GetId();
 

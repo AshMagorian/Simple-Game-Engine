@@ -6,6 +6,8 @@
 
 
 class Entity;
+class ShaderProgram;
+class VertexArray;
 
 class Application
 {
@@ -13,7 +15,10 @@ public:
 	Application();
 	~Application();
 
-	std::shared_ptr<Application> const init();
+	static std::shared_ptr<Application> const init();
+	
+	void MakeObjects();
+
 	void run();
 	void stop();
 
@@ -25,4 +30,6 @@ private:
 	std::weak_ptr<Application> self;
 
 	SDL_Window *window;
+
+	std::shared_ptr<Entity> triangle;
 };
