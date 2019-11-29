@@ -2,6 +2,7 @@
 #define COMPONENT_H
 
 #include <memory>
+#include <string>
 
 class Entity;
 class Application;
@@ -18,6 +19,8 @@ public:
 
 	std::shared_ptr<Application> getApplication();
 
+	std::string GetId() { return m_id; }
+
 private:
 	std::weak_ptr<Entity> entity;
 	bool began;
@@ -26,6 +29,9 @@ private:
 	virtual void onBegin();
 	virtual void onTick();
 	virtual void onDisplay();
+
+protected: 
+	std::string m_id;
 
 };
 #endif

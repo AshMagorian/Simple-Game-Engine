@@ -37,6 +37,8 @@ add_library(myEngine
 	src/myEngine/ShaderProgram.cpp
 	src/myEngine/Renderer.h
 	src/myEngine/Renderer.cpp
+	src/myEngine/Transform.h
+	src/myEngine/Transform.cpp
 
 )	
 

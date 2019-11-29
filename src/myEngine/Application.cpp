@@ -6,6 +6,7 @@
 #include "ShaderProgram.h"
 #include "VertexBuffer.h"
 #include "VertexArray.h"
+#include "Transform.h"
 
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
@@ -49,29 +50,6 @@ std::shared_ptr<Application> const Application::init()
 
 	
 	return app;
-}
-
-void Application::MakeObjects()
-{
-	std::shared_ptr<VertexBuffer> positions = std::make_shared<VertexBuffer>();
-	positions->add(glm::vec3(-0.5f, 0.5f, 0.0f));
-	positions->add(glm::vec3(-0.5f, -0.5f, 0.0f));
-	positions->add(glm::vec3(0.5f, -0.5f, 0.0f));
-
-	std::shared_ptr<VertexBuffer> colors = std::make_shared<VertexBuffer>();
-	colors->add(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-	colors->add(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
-	colors->add(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-
-	std::shared_ptr<VertexArray> triangleVA = std::make_shared<VertexArray>();
-	triangleVA->SetBuffer("in_Position", positions);
-	triangleVA->SetBuffer("in_Color", colors);
-
-	std::shared_ptr<ShaderProgram> shaderProgram = std::make_shared<ShaderProgram>("../src/myEngine/shaders/simple.vert", "../src/myEngine/shaders/simple.frag");
-
-	triangle = addEntity();
-	std::shared_ptr<Renderer> tRenderer = triangle->addComponent<Renderer>(shaderProgram, triangleVA, glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(1.0f, 1.0f, 1.0f)); 
-
 }
 
 void Application::run()
@@ -119,7 +97,9 @@ std::shared_ptr<Entity> Application::addEntity()
 	std::shared_ptr<Entity> entity = std::make_shared<Entity>();
 	entity->self = entity;
 	entity->application = self;
+	entity->transform = entity->addComponent<Transform>();
 	entities.push_back(entity);
+
 
 	return entity;
 }

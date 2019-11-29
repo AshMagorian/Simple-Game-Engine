@@ -1,8 +1,11 @@
 #include <memory>
 #include <list>
+#include <string>
+#include <algorithm>
 
 class Application;
 class Component;
+class Transform;
 
 class Entity
 {
@@ -27,10 +30,33 @@ public:
 		return rtn;
 	}
 
+	template <typename T>
+	std::shared_ptr<T> GetComponent()
+	{
+		std::shared_ptr<T> rtn;
+
+		for (std::list<std::shared_ptr<Component>>::iterator i = components.begin(); i != components.end(); ++i)
+		{
+			rtn = std::dynamic_pointer_cast<T>(*i);
+			if (rtn)
+			{
+				return rtn;
+			}
+		}
+
+		throw std::exception();
+	}
+
+	std::shared_ptr<Transform> GetTransform()
+	{
+		return transform.lock();
+	}
+
 private:
 	std::weak_ptr<Application> application;
 	std::list<std::shared_ptr<Component>> components;
 	std::weak_ptr<Entity> self;
+	std::weak_ptr<Transform> transform;
 
 	void tick();
 	void display();
