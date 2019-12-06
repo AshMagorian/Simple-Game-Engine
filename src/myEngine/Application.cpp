@@ -56,6 +56,8 @@ void Application::run()
 {
 	running = true;
 
+	float angle = 0.0f;
+
 	while (running)
 	{
 
@@ -84,6 +86,12 @@ void Application::run()
 		}
 
 		SDL_GL_SwapWindow(window);
+
+
+		// Spin
+		std::list<std::shared_ptr<Entity>>::iterator i = entities.begin();
+		(*i)->GetTransform()->SetRotation(glm::vec3(0.0f, angle, 0.0f));
+		angle += 1.0f;
 	}
 }
 

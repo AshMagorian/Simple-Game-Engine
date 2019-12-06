@@ -39,7 +39,10 @@ add_library(myEngine
 	src/myEngine/Renderer.cpp
 	src/myEngine/Transform.h
 	src/myEngine/Transform.cpp
-
+	src/myEngine/stb_image.h
+	src/myEngine/stb_image.cpp
+	src/myEngine/Texture.h
+	src/myEngine/Texture.cpp
 )	
 
 if(MSVC)

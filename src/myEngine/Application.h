@@ -28,4 +28,6 @@ private:
 	std::weak_ptr<Application> self;
 
 	SDL_Window *window;
+
+
 };

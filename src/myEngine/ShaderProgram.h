@@ -8,11 +8,19 @@
 #include <vector>
 
 class VertexArray;
+class Texture;
+
+struct Sampler
+{
+	GLint id;
+	std::shared_ptr<Texture> texture;
+};
 
 class ShaderProgram
 {
 private:
 	GLuint id;
+	std::vector<Sampler> samplers;
 
 public:
 	ShaderProgram(std::string vert, std::string frag);
@@ -24,6 +32,7 @@ public:
 	void SetUniform(std::string uniform, float value);
 	void SetUniform(std::string uniform, int value);
 	void SetUniform(std::string uniform, glm::mat4 value);
+	void SetUniform(std::string uniform, std::shared_ptr<Texture> texture);
 
 	GLuint GetId() { return id; }
 
