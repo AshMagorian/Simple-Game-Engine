@@ -71,6 +71,9 @@ void Application::run()
 			}
 		}
 
+		//Set proj and view
+
+
 		for (std::list<std::shared_ptr<Entity>>::iterator i = entities.begin(); i != entities.end(); ++i)
 		{
 			(*i)->tick();

@@ -43,6 +43,8 @@ add_library(myEngine
 	src/myEngine/stb_image.cpp
 	src/myEngine/Texture.h
 	src/myEngine/Texture.cpp
+	src/myEngine/Camera.h
+	src/myEngine/Camera.cpp
 )	
 
 if(MSVC)

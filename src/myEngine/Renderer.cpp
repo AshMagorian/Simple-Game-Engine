@@ -3,6 +3,7 @@
 #include "Texture.h"
 #include "Entity.h"
 #include "Transform.h"
+#include "Camera.h"
 
 Renderer::Renderer()
 {
@@ -22,6 +23,11 @@ void Renderer::onInit(std::shared_ptr<ShaderProgram> _shader, std::shared_ptr<Ve
 	m_va = _va;
 	m_tex = _tex;
 
+}
+
+void Renderer::onTick()
+{
+	//m_shaderProgram->setUniform("in_Projection", )
 }
 
 void Renderer::onDisplay()
