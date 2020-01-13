@@ -47,6 +47,11 @@ add_library(myEngine
 	src/myEngine/Camera.cpp
 	src/myEngine/Environment.h
 	src/myEngine/Environment.cpp
+	src/myEngine/Input.h
+	src/myEngine/Input.cpp
+	src/myEngine/Resource.h
+	src/myEngine/Resources.h
+	src/myEngine/Resources.cpp
 )	
 
 if(MSVC)

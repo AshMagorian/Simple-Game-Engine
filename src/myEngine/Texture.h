@@ -1,13 +1,15 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
+#include "Resource.h"
+
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
 #include <vector>
 
 
-class Texture
+class Texture : public Resource
 {
 public:
 	Texture() {}

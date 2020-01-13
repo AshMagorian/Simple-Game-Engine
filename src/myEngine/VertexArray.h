@@ -7,11 +7,12 @@
 #include <vector>
 #include <string>
 
+#include "Resource.h"
 #include "VertexBuffer.h"
 
 class VertexBuffer;
 
-class VertexArray
+class VertexArray : public Resource
 {
 private:
 	GLuint id;

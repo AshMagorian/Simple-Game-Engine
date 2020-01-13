@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 
+#include "Resource.h"
+
 class VertexArray;
 class Texture;
 
@@ -16,7 +18,7 @@ struct Sampler
 	std::shared_ptr<Texture> texture;
 };
 
-class ShaderProgram
+class ShaderProgram : public Resource
 {
 private:
 	GLuint id;

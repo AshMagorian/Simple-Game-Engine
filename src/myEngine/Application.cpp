@@ -9,6 +9,7 @@
 #include "Transform.h"
 #include "Camera.h"
 #include "Environment.h"
+#include "Input.h"
 
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
@@ -62,6 +63,12 @@ void Application::run()
 	int windowWidth = 0;
 	int windowHeight = 0;
 
+	for (std::list<std::shared_ptr<Entity>>::iterator i = entities.begin(); i != entities.end(); ++i)
+	{
+		(*i)->begin();
+
+	}
+
 	while (running)
 	{
 		m_time->StartOfFrame();
@@ -70,17 +77,20 @@ void Application::run()
 		glEnable(GL_CULL_FACE);
 		glEnable(GL_DEPTH_TEST);
 
-		SDL_Event event = { 0 };
-		
-		while (SDL_PollEvent(&event))
-		{
-			if (event.type == SDL_QUIT)
-			{
-				stop();
-			}
-		}
 
-		//Set proj and view
+		if (!m_input->UpdateKeys()) { stop(); }
+
+		if (m_input->IsKeyPressed('w')) { std::cout << "w is pressed! WOOOOOO!" << std::endl; }
+		if (m_input->IsKeyReleased('w')) { std::cout << "w is released! WOOOOOO!" << std::endl; }
+
+		if (m_input->IsKeyPressed('a')) { std::cout << "a is pressed! WOOOOOO!" << std::endl; }
+		if (m_input->IsKeyReleased('a')) { std::cout << "a is released! WOOOOOO!" << std::endl; }
+
+		if (m_input->IsKeyPressed('s')) { std::cout << "s is pressed! WOOOOOO!" << std::endl; }
+		if (m_input->IsKeyReleased('s')) { std::cout << "s is released! WOOOOOO!" << std::endl; }
+
+		if (m_input->IsKeyPressed('d')) { std::cout << "d is pressed! WOOOOOO!" << std::endl; }
+		if (m_input->IsKeyReleased('d')) { std::cout << "d is released! WOOOOOO!" << std::endl; }
 
 
 		for (std::list<std::shared_ptr<Entity>>::iterator i = entities.begin(); i != entities.end(); ++i)

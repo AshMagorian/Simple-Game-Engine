@@ -37,3 +37,11 @@ void Entity::display()
 		(*i)->onDisplay();
 	}
 }
+
+void Entity::begin()
+{
+	for (std::list<std::shared_ptr<Component>>::iterator i = components.begin(); i != components.end(); ++i)
+	{
+		(*i)->onBegin();
+	}
+}

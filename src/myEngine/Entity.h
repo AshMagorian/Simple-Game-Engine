@@ -58,6 +58,7 @@ private:
 	std::weak_ptr<Entity> self;
 	std::weak_ptr<Transform> transform;
 
+	void begin();
 	void tick();
 	void display();
 };
