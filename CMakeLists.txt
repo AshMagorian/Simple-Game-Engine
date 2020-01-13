@@ -45,6 +45,8 @@ add_library(myEngine
 	src/myEngine/Texture.cpp
 	src/myEngine/Camera.h
 	src/myEngine/Camera.cpp
+	src/myEngine/Environment.h
+	src/myEngine/Environment.cpp
 )	
 
 if(MSVC)
@@ -58,7 +60,9 @@ else()
 endif()
 
 add_executable(game
-  src/game/main.cpp
+	src/game/main.cpp
+	src/game/Camera_FirstPerson.h
+	src/game/Camera_FirstPerson.cpp
 )
 
 target_link_libraries(game myEngine)

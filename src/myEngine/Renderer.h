@@ -7,6 +7,7 @@
 class ShaderProgram;
 class VertexArray;
 class Texture;
+class Camera;
 
 class Renderer : public Component
 {

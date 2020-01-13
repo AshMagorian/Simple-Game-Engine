@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "Transform.h"
 #include "Camera.h"
+#include "Application.h"
 
 Renderer::Renderer()
 {
@@ -27,7 +28,8 @@ void Renderer::onInit(std::shared_ptr<ShaderProgram> _shader, std::shared_ptr<Ve
 
 void Renderer::onTick()
 {
-	//m_shaderProgram->setUniform("in_Projection", )
+	m_shaderProgram->SetUniform("in_Projection", getApplication()->GetCamera()->GetProjectionMatrix());
+	m_shaderProgram->SetUniform("in_View", getApplication()->GetCamera()->GetViewMatrix());
 }
 
 void Renderer::onDisplay()

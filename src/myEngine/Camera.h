@@ -4,24 +4,25 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 
-class Camera : public Component
+class Camera 
 {
 private:
 
-	float m_windowHeight;
-	float m_windowWidth;
 	float m_viewAngle;
 
 	glm::mat4 m_viewMatrix;
 	glm::mat4 m_projectionMatrix;
 
+	std::shared_ptr<Entity> m_currentCamera;
+
 public:
 	Camera();
 	~Camera();
 
-	void onInit(float _h, float _w, float _angle);
+	void UpdateMatrix(int _w, int _h);
 
-	void onTick();
+	void SetViewAngle(float _angle) { m_viewAngle = _angle; }
+	void SetCurrentCamera(std::shared_ptr<Entity> _cam) { m_currentCamera = _cam; }
 
 	glm::mat4 GetViewMatrix() { return m_viewMatrix; }
 	glm::mat4 GetProjectionMatrix() { return m_projectionMatrix; }

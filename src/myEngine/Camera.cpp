@@ -2,10 +2,9 @@
 #include "Component.h"
 #include "Transform.h"
 #include "Entity.h"
-
 Camera::Camera()
 {
-
+	m_viewAngle = 45.0f;
 }
 
 Camera::~Camera()
@@ -13,16 +12,9 @@ Camera::~Camera()
 
 }
 
-void Camera::onInit(float _h, float _w, float _angle)
-{
-	m_windowHeight = _h;
-	m_windowWidth = _w;
-	m_viewAngle = _angle;
-}
-
-void Camera::onTick()
+void Camera::UpdateMatrix(int _w, int _h)
 {
 	m_projectionMatrix = glm::perspective(glm::radians(m_viewAngle),
-		m_windowWidth / m_windowHeight, 0.1f, 100.f);
-	m_viewMatrix = glm::inverse(getEntity()->GetTransform()->GetModelMatrix());
+		(float) _w / (float) _h, 0.1f, 100.f);
+	m_viewMatrix = glm::inverse(m_currentCamera->GetTransform()->GetModelMatrix());
 }
