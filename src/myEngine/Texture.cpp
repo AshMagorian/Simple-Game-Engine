@@ -24,7 +24,9 @@ Texture::Texture(std::string path)
 	unsigned char *data = stbi_load(path.c_str(), &w, &h, &channels, 4);
 	if (!data)
 	{
-		throw std::exception();
+		//throw std::exception("Texture file not found");
+		path = "../src/myEngine/BlankColour.png";
+		data = stbi_load(path.c_str(), &w, &h, &channels, 4);
 	}
 
 	size.x = w;

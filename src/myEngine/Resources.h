@@ -40,5 +40,7 @@ public:
 		return resource;
 
 	}
+
+	std::list<std::shared_ptr<Resource>> GetResources() { return m_resources; }
 };
 #endif

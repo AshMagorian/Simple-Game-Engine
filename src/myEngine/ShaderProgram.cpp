@@ -7,12 +7,30 @@
 #include <iostream>
 
 
-ShaderProgram::ShaderProgram(std::string vert, std::string frag)
+ShaderProgram::ShaderProgram(std::string _path)
 {
+	std::string vertPath;
+	std::string fragPath;
+
+	std::ifstream file(_path);
+	if (!file.is_open())
+	{
+		throw std::exception();
+	}
+	else
+	{
+		std::string line;
+		std::getline(file, line);
+		vertPath += line;
+		std::getline(file, line);
+		fragPath += line;
+	}
+	file.close();
+
 	std::string vertShader;
 	std::string fragShader;
 
-	std::ifstream file(vert);
+	file.open(vertPath);
 	if (!file.is_open())
 	{
 		throw std::exception();
@@ -28,7 +46,7 @@ ShaderProgram::ShaderProgram(std::string vert, std::string frag)
 	}
 	file.close();
 
-	file.open(frag);
+	file.open(fragPath);
 
 	if (!file.is_open())
 	{

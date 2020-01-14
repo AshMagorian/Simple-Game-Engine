@@ -25,7 +25,7 @@ private:
 	std::vector<Sampler> samplers;
 
 public:
-	ShaderProgram(std::string vert, std::string frag);
+	ShaderProgram(std::string _path);
 
 	void Draw(std::shared_ptr<VertexArray> vertexArray);
 

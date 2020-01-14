@@ -24,7 +24,7 @@ bool Input::UpdateKeys()
 			if (event.key.keysym.sym == SDLK_w) 
 			{ 
 				m_releasedKeys.push_back(w); 
-				for (int i = 0; i < m_keys.size(); ++i)
+				for (int i = 0; i < (int)m_keys.size(); ++i)
 				{
 					if (m_keys.at(i) == w) { m_keys.erase(m_keys.begin() + i); break; }
 				}
@@ -32,7 +32,7 @@ bool Input::UpdateKeys()
 			if (event.key.keysym.sym == SDLK_a)
 			{
 				m_releasedKeys.push_back(a);
-				for (int i = 0; i < m_keys.size(); ++i)
+				for (int i = 0; i < (int)m_keys.size(); ++i)
 				{
 					if (m_keys.at(i) == a) { m_keys.erase(m_keys.begin() + i); break; }
 				}
@@ -40,7 +40,7 @@ bool Input::UpdateKeys()
 			if (event.key.keysym.sym == SDLK_s)
 			{
 				m_releasedKeys.push_back(s);
-				for (int i = 0; i < m_keys.size(); ++i)
+				for (int i = 0; i < (int)m_keys.size(); ++i)
 				{
 					if (m_keys.at(i) == s) { m_keys.erase(m_keys.begin() + i); break; }
 				}
@@ -48,7 +48,7 @@ bool Input::UpdateKeys()
 			if (event.key.keysym.sym == SDLK_d)
 			{
 				m_releasedKeys.push_back(d);
-				for (int i = 0; i < m_keys.size(); ++i)
+				for (int i = 0; i < (int)m_keys.size(); ++i)
 				{
 					if (m_keys.at(i) == d) { m_keys.erase(m_keys.begin() + i); break; }
 				}
@@ -76,7 +76,7 @@ bool Input::IsKey(char _key)
 bool Input::IsKeyPressed(char _key)
 {
 	int k = (key)_key;
-	for (int i = 0; i < m_pressedKeys.size(); ++i)
+	for (int i = 0; i < (int)m_pressedKeys.size(); ++i)
 	{
 		if (m_pressedKeys.at(i) == k)
 		{
@@ -89,7 +89,7 @@ bool Input::IsKeyPressed(char _key)
 bool Input::IsKeyReleased(char _key)
 {
 	int k = (key)_key;
-	for (int i = 0; i < m_releasedKeys.size(); ++i)
+	for (int i = 0; i < (int)m_releasedKeys.size(); ++i)
 	{
 		if (m_releasedKeys.at(i) == k)
 		{

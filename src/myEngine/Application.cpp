@@ -10,6 +10,8 @@
 #include "Camera.h"
 #include "Environment.h"
 #include "Input.h"
+#include "Resource.h"
+#include "Resources.h"
 
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
@@ -51,6 +53,27 @@ std::shared_ptr<Application> const Application::init()
 	}
 	//---------------------------------------------------------------------------------------------------
 
+	app->device = alcOpenDevice(NULL);
+
+	if (!app->device)
+	{
+		throw std::exception();
+	}
+
+	app->context = alcCreateContext(app->device, NULL);
+
+	if (!app->context)
+	{
+		alcCloseDevice(app->device);
+		throw std::exception();
+	}
+
+	if (!alcMakeContextCurrent(app->context))
+	{
+		alcDestroyContext(app->context);
+		alcCloseDevice(app->device);
+		throw std::exception();
+	}
 	
 	return app;
 }
@@ -119,6 +142,12 @@ void Application::run()
 
 		m_time->CapFramerate(60.0f);
 	}
+
+	alcMakeContextCurrent(NULL);
+	alcDestroyContext(context);
+	alcCloseDevice(device);
+
+	SDL_DestroyWindow(window);
 }
 
 void Application::stop()
@@ -130,7 +159,6 @@ float Application::GetDeltaTime()
 {
 	return m_time->GetDeltaTime(); 
 }
-
 
 std::shared_ptr<Entity> Application::addEntity()
 {
