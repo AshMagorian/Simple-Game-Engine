@@ -61,6 +61,10 @@ add_library(myEngine
 	src/myEngine/Resources.cpp
 	src/myEngine/Exception.h
 	src/myEngine/Exception.cpp
+	src/myEngine/Sound.h
+	src/myEngine/Sound.cpp
+	src/myEngine/SoundComponent.h
+	src/myEngine/SoundComponent.cpp
 )	
 
 if(MSVC)
@@ -77,6 +81,8 @@ add_executable(game
 	src/game/main.cpp
 	src/game/Camera_FirstPerson.h
 	src/game/Camera_FirstPerson.cpp
+	src/game/SoundToggle.h
+	src/game/SoundToggle.cpp
 )
 
 target_link_libraries(game myEngine)

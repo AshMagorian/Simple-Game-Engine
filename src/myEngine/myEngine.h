@@ -17,5 +17,7 @@
 #include "Resource.h"
 #include "Resources.h"
 #include "Exception.h"
+#include "Sound.h"
+#include "SoundComponent.h"
 
 #endif

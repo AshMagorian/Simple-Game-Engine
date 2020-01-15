@@ -115,6 +115,8 @@ void Application::run()
 		if (m_input->IsKeyPressed('d')) { std::cout << "d is pressed! WOOOOOO!" << std::endl; }
 		if (m_input->IsKeyReleased('d')) { std::cout << "d is released! WOOOOOO!" << std::endl; }
 
+		if (m_input->IsKeyPressed(' ')) { std::cout << "space is pressed! WOOOOOO!" << std::endl; }
+		if (m_input->IsKeyReleased(' ')) { std::cout << "space is released! WOOOOOO!" << std::endl; }
 
 		for (std::list<std::shared_ptr<Entity>>::iterator i = entities.begin(); i != entities.end(); ++i)
 		{

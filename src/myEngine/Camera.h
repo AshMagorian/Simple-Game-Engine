@@ -23,6 +23,7 @@ public:
 
 	void SetViewAngle(float _angle) { m_viewAngle = _angle; }
 	void SetCurrentCamera(std::shared_ptr<Entity> _cam) { m_currentCamera = _cam; }
+	std::shared_ptr<Entity> GetCurrentCamera() { return m_currentCamera; }
 
 	glm::mat4 GetViewMatrix() { return m_viewMatrix; }
 	glm::mat4 GetProjectionMatrix() { return m_projectionMatrix; }

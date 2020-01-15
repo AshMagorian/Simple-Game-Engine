@@ -19,6 +19,7 @@ bool Input::UpdateKeys()
 			if (event.key.keysym.sym == SDLK_a) { if (!IsKey(a)) { m_keys.push_back(a); m_pressedKeys.push_back(a); } } // If 'a' isn't in the vector then add it to the vector
 			if (event.key.keysym.sym == SDLK_s) { if (!IsKey(s)) { m_keys.push_back(s); m_pressedKeys.push_back(s); } } // If 's' isn't in the vector then add it to the vector
 			if (event.key.keysym.sym == SDLK_d) { if (!IsKey(d)) { m_keys.push_back(d); m_pressedKeys.push_back(d); } } // If 'd' isn't in the vector then add it to the vector
+			if (event.key.keysym.sym == SDLK_SPACE) { if (!IsKey(SDLK_SPACE)) { m_keys.push_back(SDLK_SPACE); m_pressedKeys.push_back(SDLK_SPACE); } } // If 'space' isn't in the vector then add it to the vector
 			break;
 		case SDL_KEYUP:
 			if (event.key.keysym.sym == SDLK_w) 
@@ -51,6 +52,14 @@ bool Input::UpdateKeys()
 				for (int i = 0; i < (int)m_keys.size(); ++i)
 				{
 					if (m_keys.at(i) == d) { m_keys.erase(m_keys.begin() + i); break; }
+				}
+			}
+			if (event.key.keysym.sym == SDLK_SPACE)
+			{
+				m_releasedKeys.push_back(SDLK_SPACE);
+				for (int i = 0; i < (int)m_keys.size(); ++i)
+				{
+					if (m_keys.at(i) == SDLK_SPACE) { m_keys.erase(m_keys.begin() + i); break; }
 				}
 			}
 		}

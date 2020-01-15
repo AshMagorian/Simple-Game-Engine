@@ -4,6 +4,7 @@
 #include <myEngine/myEngine.h>
 
 #include "Camera_FirstPerson.h"
+#include "SoundToggle.h"
 
 #include <exception>
 
@@ -31,9 +32,12 @@ int main(int argc, char *argv[])
 		std::shared_ptr<Entity> firstPersonCamera = application->addEntity();
 		firstPersonCamera->addComponent<Camera_FirstPerson>();
 		firstPersonCamera->GetTransform()->SetPos(glm::vec3(0.0f, 0.0f, 10.0f));
-
 		application->GetCamera()->SetCurrentCamera(firstPersonCamera);
 
+		// Sound setup
+		application->GetResourceManager()->CreateResource<Sound>("../src/resources/audio/dixie_horn.ogg");
+		triangle->addComponent<SoundComponent>(application->GetResourceManager()->LoadFromResources<Sound>("../src/resources/audio/dixie_horn.ogg"));
+		triangle->addComponent<SoundToggle>();
 
 		application->run();
 	}

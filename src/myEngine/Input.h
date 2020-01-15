@@ -12,7 +12,8 @@ private:
 		w = 119,
 		a = 97,
 		s = 115,
-		d = 100
+		d = 100,
+		space = 32
 	};
 
 	std::vector<int> m_keys;
