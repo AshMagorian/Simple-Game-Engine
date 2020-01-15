@@ -12,6 +12,7 @@
 #include "Input.h"
 #include "Resource.h"
 #include "Resources.h"
+#include "Exception.h"
 
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
@@ -32,49 +33,36 @@ std::shared_ptr<Application> const Application::init()
 	std::shared_ptr<Application> app = std::make_shared<Application>();
 	app->running = false;
 	app->self = app;
+	try { if (SDL_Init(SDL_INIT_VIDEO) < 0){throw Exception("SDL_VIDEO not initialised");}}
+	catch (Exception& e) { std::cout << "myEngine Exception: " << e.what() << std::endl; }
 
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-	{
-		throw std::exception();
-	}
-	
 	app->window = SDL_CreateWindow("my game",
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 		WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
 	
-	if (!SDL_GL_CreateContext(app->window))
-	{
-		throw std::exception();
-	}
-	
-	if (glewInit() != GLEW_OK)
-	{
-		throw std::exception();
-	}
-	//---------------------------------------------------------------------------------------------------
+	try { if (!SDL_GL_CreateContext(app->window)) { throw Exception("Window couldn't be created"); } }
+	catch (Exception& e) { std::cout << "myEngine Exception: " << e.what() << std::endl; }
+
+	try { if (glewInit() != GLEW_OK) { throw Exception("GLEW couldn't be initialised"); } }
+	catch (Exception& e) { std::cout << "myEngine Exception: " << e.what() << std::endl; }
 
 	app->device = alcOpenDevice(NULL);
 
-	if (!app->device)
-	{
-		throw std::exception();
-	}
+	try { if (!app->device) { throw Exception("alc OpenDevice failed"); } }
+	catch (Exception& e) { std::cout << "myEngine Exception: " << e.what() << std::endl; }
 
 	app->context = alcCreateContext(app->device, NULL);
 
-	if (!app->context)
-	{
-		alcCloseDevice(app->device);
-		throw std::exception();
-	}
+	try { if (!app->context) { throw Exception("alc CreateContext failed"); } }
+	catch (Exception& e) { alcCloseDevice(app->device); std::cout << "myEngine Exception: " << e.what() << std::endl; }
 
-	if (!alcMakeContextCurrent(app->context))
-	{
+	try { if (!alcMakeContextCurrent(app->context)) { throw Exception("alc MakeContextCurrent failed"); } }
+	catch (Exception& e) 
+	{ 
 		alcDestroyContext(app->context);
-		alcCloseDevice(app->device);
-		throw std::exception();
+		alcCloseDevice(app->device); 
+		std::cout << "myEngine Exception: " << e.what() << std::endl; 
 	}
-	
 	return app;
 }
 

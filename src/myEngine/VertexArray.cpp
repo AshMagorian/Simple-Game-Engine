@@ -1,4 +1,5 @@
 #include "VertexArray.h"
+#include "Exception.h"
 
 #include <fstream>
 #include <iostream>
@@ -84,9 +85,10 @@ VertexArray::VertexArray(std::string path)
 	buffers.resize(10);
 	std::ifstream file(path.c_str());
 
+
 	if (!file.is_open())
 	{
-		throw std::exception();
+		throw Exception("Model file not found, '" + path + "' cannot be loaded");
 	}
 
 	std::string line;
@@ -174,6 +176,7 @@ VertexArray::VertexArray(std::string path)
 
 void VertexArray::SetBuffer(std::string attribute, std::shared_ptr<VertexBuffer> buffer)
 {
+	
 	if (attribute == "in_Position")
 	{
 		buffers.at(0) = buffer;
@@ -192,9 +195,9 @@ void VertexArray::SetBuffer(std::string attribute, std::shared_ptr<VertexBuffer>
 	}
 	else
 	{
-		throw std::exception();
+		throw Exception(attribute + " buffer can't be set");
 	}
-
+	
 	dirty = true;
 }
 
@@ -202,7 +205,7 @@ int VertexArray::GetVertexCount()
 {
 	if (!buffers.at(0))
 	{
-		throw std::exception();
+		throw Exception("Buffers don't exist");
 	}
 	return buffers.at(0)->GetDataSize() / buffers.at(0)->GetComponents();
 

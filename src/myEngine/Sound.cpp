@@ -1,6 +1,7 @@
 #include "Sound.h"
 
 #include <vorbis/vorbisfile.h>
+#include "Exception.h"
 
 #include <iostream>
 
@@ -36,8 +37,7 @@ void Sound::LoadOggFile(const std::string& fileName, std::vector<char>& buffer,
 	// Use the inbuilt fopen to create a file descriptor
 	if (ov_fopen(fileName.c_str(), &oggFile) != 0)
 	{
-		std::cout << "Failed to open file '" << fileName << "' for decoding" << std::endl;
-		throw std::exception();
+		throw Exception("Ogg file not found, '" + fileName + "' cannot be loaded");
 	}
 
 	// Extract information from the file header

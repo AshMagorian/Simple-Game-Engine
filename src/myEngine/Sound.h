@@ -20,6 +20,9 @@ public:
 	void LoadOggFile(const std::string& fileName, std::vector<char>& buffer,
 		ALenum &format, ALsizei &freq);
 
-	ALuint GetId() { return id; }
+	ALuint GetId() 
+	{ 
+		return id;
+	}
 };
 #endif

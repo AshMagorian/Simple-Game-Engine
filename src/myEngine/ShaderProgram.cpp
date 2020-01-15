@@ -2,6 +2,7 @@
 #include "VertexBuffer.h"
 #include "VertexArray.h"
 #include "Texture.h"
+#include "Exception.h"
 
 #include <glm/ext.hpp>
 #include <iostream>
@@ -13,9 +14,10 @@ ShaderProgram::ShaderProgram(std::string _path)
 	std::string fragPath;
 
 	std::ifstream file(_path);
+	
 	if (!file.is_open())
 	{
-		throw std::exception();
+		throw Exception("Shader file not found, '" + _path + "' cannot be loaded");
 	}
 	else
 	{
@@ -33,7 +35,7 @@ ShaderProgram::ShaderProgram(std::string _path)
 	file.open(vertPath);
 	if (!file.is_open())
 	{
-		throw std::exception();
+		throw Exception("Vertex shader not found, '" + vertPath + "' cannot be loaded");
 	}
 	else
 	{
@@ -50,7 +52,7 @@ ShaderProgram::ShaderProgram(std::string _path)
 
 	if (!file.is_open())
 	{
-		throw std::exception();
+		throw Exception("Fragment shader not found, '" + fragPath + "' cannot be loaded");
 	}
 	else
 	{
@@ -77,8 +79,8 @@ ShaderProgram::ShaderProgram(std::string _path)
 		glGetShaderiv(vertexShaderId, GL_INFO_LOG_LENGTH, &maxLength);
 		std::vector<GLchar> errorlog(maxLength);
 		glGetShaderInfoLog(vertexShaderId, maxLength, &maxLength, &errorlog[0]);
-		std::cout << &errorlog.at(0) << std::endl;
-		throw std::exception();
+		//std::cout << &errorlog.at(0) << std::endl;
+		throw Exception("Vertex shader compile error: " + (std::string)&errorlog.at(0));
 	}
 
 	GLuint fragmentShaderId = glCreateShader(GL_FRAGMENT_SHADER);
@@ -92,8 +94,8 @@ ShaderProgram::ShaderProgram(std::string _path)
 		glGetShaderiv(fragmentShaderId, GL_INFO_LOG_LENGTH, &maxLength);
 		std::vector<GLchar> errorlog(maxLength);
 		glGetShaderInfoLog(fragmentShaderId, maxLength, &maxLength, &errorlog[0]);
-		std::cout << &errorlog.at(0) << std::endl;
-		throw std::exception();
+		//std::cout << &errorlog.at(0) << std::endl;
+		throw Exception("Fragment shader compile error: " + (std::string)&errorlog.at(0));
 	}
 
 	id = glCreateProgram();
@@ -111,7 +113,7 @@ ShaderProgram::ShaderProgram(std::string _path)
 	glGetProgramiv(id, GL_LINK_STATUS, &success);
 	if (!success)
 	{
-		throw std::exception();
+		throw Exception("Shader cannot be created");
 	}
 
 	glDetachShader(id, vertexShaderId);

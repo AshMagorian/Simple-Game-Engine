@@ -28,15 +28,20 @@ void Renderer::onInit(std::shared_ptr<ShaderProgram> _shader, std::shared_ptr<Ve
 
 void Renderer::onTick()
 {
-	m_shaderProgram->SetUniform("in_Projection", getApplication()->GetCamera()->GetProjectionMatrix());
-	m_shaderProgram->SetUniform("in_View", getApplication()->GetCamera()->GetViewMatrix());
+	if (m_shaderProgram)
+	{
+		m_shaderProgram->SetUniform("in_Projection", getApplication()->GetCamera()->GetProjectionMatrix());
+		m_shaderProgram->SetUniform("in_View", getApplication()->GetCamera()->GetViewMatrix());
+	}
 }
 
 void Renderer::onDisplay()
 {
+	if (m_shaderProgram && m_tex && m_va)
+	{
+		m_shaderProgram->SetUniform("in_Model", getEntity()->GetTransform()->GetModelMatrix());
+		m_shaderProgram->SetUniform("in_Texture", m_tex);
+		m_shaderProgram->Draw(m_va);
+	}
 
-	m_shaderProgram->SetUniform("in_Model", getEntity()->GetTransform()->GetModelMatrix());
-	m_shaderProgram->SetUniform("in_Texture", m_tex);
-
-	m_shaderProgram->Draw(m_va);
 }

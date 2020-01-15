@@ -8,13 +8,16 @@ class SoundComponent : public Component
 {
 private:
 	std::shared_ptr<Sound> m_soundSource;
+	bool m_playTrigger = false;
 	bool m_isPlaying = false;
+
+
 public:
 	void onInit(std::shared_ptr<Sound> _sound);
 	void onTick();
 	void onBegin();
 	void Play();
 
-	void SetIsPlaying(bool _val) { m_isPlaying = _val; }
+	void SetIsPlaying(bool _val) { m_isPlaying = _val; m_playTrigger = _val; }
 };
 #endif

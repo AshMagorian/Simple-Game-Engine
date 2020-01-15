@@ -6,6 +6,8 @@
 #include <iostream>
 
 #include "Resource.h"
+#include "Exception.h"
+
 class Resources
 {
 private:
@@ -15,28 +17,50 @@ public:
 	template<typename T>
 	std::shared_ptr<T> LoadFromResources(std::string _path)
 	{
-		std::shared_ptr<T> rtn;
-		for (std::list<std::shared_ptr<Resource>>::iterator i = m_resources.begin(); i != m_resources.end(); ++i)
+		try
 		{
-			std::cout << "*i-> GetPath() = " << (*i)->GetPath() << std::endl;
-			if (_path == (*i)->GetPath())
+			std::shared_ptr<T> rtn;
+			for (std::list<std::shared_ptr<Resource>>::iterator i = m_resources.begin(); i != m_resources.end(); ++i)
 			{
-				rtn = std::dynamic_pointer_cast<T>(*i);
-				if (rtn)
+				if (_path == (*i)->GetPath())
 				{
-					return rtn;
+					rtn = std::dynamic_pointer_cast<T>(*i);
+					if (rtn)
+					{
+						std::cout << (*i)->GetPath() << " loaded" << std::endl;
+						return rtn;
+					}
 				}
 			}
+			throw Exception(_path + " cannot be loaded from Resources");
 		}
-		throw std::exception();
+		catch (Exception& e)
+		{
+			std::cout << "myEngine Exception: " << e.what() << std::endl;
+		}
+		catch (std::exception& e)
+		{
+			std::cout << "exception: " << e.what() << std::endl;
+		}
+		return NULL;
 	}
-
+	
 	template<typename T>
 	std::shared_ptr<T> CreateResource(std::string _path)
 	{
-		std::shared_ptr<T> resource = std::make_shared<T>(_path);
+		std::shared_ptr<T> resource;
+		try
+		{
+			resource = std::make_shared<T>(_path);
+		}
+		catch (Exception& e)
+		{
+			std::cout << "myEngine Exception: " << e.what() << std::endl;
+			return NULL;
+		}
 		resource->SetPath(_path);
 		m_resources.push_back(resource);
+		std::cout << _path << " created" << std::endl;
 		return resource;
 
 	}

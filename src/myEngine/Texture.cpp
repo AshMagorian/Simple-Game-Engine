@@ -1,7 +1,9 @@
 #include "Texture.h"
 
 #include "stb_image.h"
+#include "Exception.h"
 
+#include <iostream>
 
 Texture::Texture(int width, int height)
 {
@@ -22,12 +24,19 @@ Texture::Texture(std::string path)
 	int h = 0;
 	int channels = 0;
 	unsigned char *data = stbi_load(path.c_str(), &w, &h, &channels, 4);
-	if (!data)
+	try {
+		if (!data)
+		{
+			throw Exception("Texture file not found, " + path + " cannot be loaded ");
+		}
+	}
+	catch (Exception& e)
 	{
-		//throw std::exception("Texture file not found");
+		std::cout << "myEngine Exception: " << e.what() << std::endl;
 		path = "../src/myEngine/BlankColour.png";
 		data = stbi_load(path.c_str(), &w, &h, &channels, 4);
 	}
+
 
 	size.x = w;
 	size.y = h;
