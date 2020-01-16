@@ -63,6 +63,13 @@ bool Input::UpdateKeys()
 				}
 			}
 		}
+		if (event.type == SDL_MOUSEMOTION)
+		{
+			m_mouseX = event.motion.x;
+			m_mouseY = event.motion.y;
+			m_deltaMouseX = (int)(640/2) - m_mouseX;  // deltaX = centre of screen - mouseX
+			m_deltaMouseY = (int)(480/2) - m_mouseY;	 // deltaY = centre of screen - mouseY
+		}
 	}
 
 	if (m_quit == true) { return false; }

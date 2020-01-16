@@ -22,10 +22,13 @@ public:
 	Renderer();
 	~Renderer();
 
+	void onInit() {}
 	void onInit(std::shared_ptr<ShaderProgram> _shader, std::shared_ptr<VertexArray> _va, std::shared_ptr<Texture> _tex);
 	void onTick();
 	void onDisplay();
 
-	void SayHi() { std::cout << "renderer says hi" << std::endl; }
+	void SetMesh(std::shared_ptr<VertexArray> _va) { m_va = _va; }
+	void SetTexture(std::shared_ptr<Texture> _tex) { m_tex = _tex; }
+	void SetShader(std::shared_ptr<ShaderProgram> _shader) { m_shaderProgram = _shader; }
 
 };

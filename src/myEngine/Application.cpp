@@ -1,18 +1,4 @@
-#include "Application.h"
-#include "Entity.h"
-#include "Component.h"
-
-#include "Renderer.h"
-#include "ShaderProgram.h"
-#include "VertexBuffer.h"
-#include "VertexArray.h"
-#include "Transform.h"
-#include "Camera.h"
-#include "Environment.h"
-#include "Input.h"
-#include "Resource.h"
-#include "Resources.h"
-#include "Exception.h"
+#include "myEngine.h"
 
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
@@ -63,6 +49,18 @@ std::shared_ptr<Application> const Application::init()
 		alcCloseDevice(app->device); 
 		std::cout << "myEngine Exception: " << e.what() << std::endl; 
 	}
+	try
+	{ 
+		if (!app->m_resourceManager)
+		{
+			throw Exception("Resource manager not loaded"); 
+		}
+		app->GetResourceManager()->CreateResource<VertexArray>("../src/myEngine/engineRes/Cube.obj");
+		app->GetResourceManager()->CreateResource<ShaderProgram>("../src/resources/shaders/simpleTex.txt");
+		app->GetResourceManager()->CreateResource<Texture>("../src/myEngine/engineRes/Grey.png");
+	}
+	catch (Exception& e) { std::cout << "myEngine Exception: " << e.what() << std::endl; }
+
 	return app;
 }
 
@@ -91,24 +89,19 @@ void Application::run()
 
 		if (!m_input->UpdateKeys()) { stop(); }
 
-		if (m_input->IsKeyPressed('w')) { std::cout << "w is pressed! WOOOOOO!" << std::endl; }
-		if (m_input->IsKeyReleased('w')) { std::cout << "w is released! WOOOOOO!" << std::endl; }
-
-		if (m_input->IsKeyPressed('a')) { std::cout << "a is pressed! WOOOOOO!" << std::endl; }
-		if (m_input->IsKeyReleased('a')) { std::cout << "a is released! WOOOOOO!" << std::endl; }
-
-		if (m_input->IsKeyPressed('s')) { std::cout << "s is pressed! WOOOOOO!" << std::endl; }
-		if (m_input->IsKeyReleased('s')) { std::cout << "s is released! WOOOOOO!" << std::endl; }
-
-		if (m_input->IsKeyPressed('d')) { std::cout << "d is pressed! WOOOOOO!" << std::endl; }
-		if (m_input->IsKeyReleased('d')) { std::cout << "d is released! WOOOOOO!" << std::endl; }
-
-		if (m_input->IsKeyPressed(' ')) { std::cout << "space is pressed! WOOOOOO!" << std::endl; }
-		if (m_input->IsKeyReleased(' ')) { std::cout << "space is released! WOOOOOO!" << std::endl; }
+		SDL_WarpMouseInWindow(window, 320, 240); // moves the mouse to the middle of the window
+		SDL_ShowCursor(SDL_DISABLE); // Hides the cursor
 
 		for (std::list<std::shared_ptr<Entity>>::iterator i = entities.begin(); i != entities.end(); ++i)
 		{
-			(*i)->tick();
+			try
+			{
+				(*i)->tick();
+			} 
+			catch (Exception& e) 
+			{ 
+				std::cout << "myEngine Exception: " << e.what() << std::endl; 
+			}
 		}
 
 		glClearColor(0.0f, 0.0f, 0.3f, 1.0f);
@@ -119,16 +112,9 @@ void Application::run()
 		for (std::list<std::shared_ptr<Entity>>::iterator i = entities.begin(); i != entities.end(); ++i)
 		{
 			(*i)->display();
-			
 		}
 
 		SDL_GL_SwapWindow(window);
-
-
-		// Spin
-		std::list<std::shared_ptr<Entity>>::iterator i = entities.begin();
-		(*i)->GetTransform()->SetRotation(glm::vec3(0.0f, angle, 0.0f));
-		angle += 1.0f;
 
 		m_time->CapFramerate(60.0f);
 	}
@@ -156,6 +142,21 @@ std::shared_ptr<Entity> Application::addEntity()
 	entity->self = entity;
 	entity->application = self;
 	entity->transform = entity->addComponent<Transform>();
+	entities.push_back(entity);
+
+
+	return entity;
+}
+
+std::shared_ptr<Entity> Application::MakeCube()
+{
+	std::shared_ptr<Entity> entity = std::make_shared<Entity>();
+	entity->self = entity;
+	entity->application = self;
+	entity->transform = entity->addComponent<Transform>();
+	entity->addComponent<Renderer>(m_resourceManager->LoadFromResources<ShaderProgram>("../src/resources/shaders/simpleTex.txt"),
+									m_resourceManager->LoadFromResources<VertexArray>("../src/myEngine/engineRes/Cube.obj"),
+									m_resourceManager->LoadFromResources<Texture>("../src/myEngine/engineRes/Grey.png"));
 	entities.push_back(entity);
 
 

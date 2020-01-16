@@ -65,6 +65,8 @@ add_library(myEngine
 	src/myEngine/Sound.cpp
 	src/myEngine/SoundComponent.h
 	src/myEngine/SoundComponent.cpp
+	src/myEngine/BoxCollider.h
+	src/myEngine/BoxCollider.cpp
 )	
 
 if(MSVC)

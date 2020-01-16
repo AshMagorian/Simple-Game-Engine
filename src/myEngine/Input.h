@@ -20,6 +20,11 @@ private:
 	std::vector<int> m_pressedKeys;
 	std::vector<int> m_releasedKeys;
 
+	int m_deltaMouseX;
+	int m_deltaMouseY;
+	int m_mouseX;
+	int m_mouseY;
+
 	SDL_Event event = { 0 };
 
 	bool m_quit = false;
@@ -33,6 +38,8 @@ public:
 	bool IsKey(char _key);
 	bool IsKeyPressed(char _key);
 	bool IsKeyReleased(char _key);
+	int GetDeltaMouseX() { return m_deltaMouseX; }
+	int GetDeltaMouseY() { return m_deltaMouseY; }
 	void ClearKeys();
 
 };

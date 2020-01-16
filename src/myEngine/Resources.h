@@ -14,6 +14,9 @@ private:
 	std::list<std::shared_ptr<Resource>> m_resources;
 
 public:
+
+	Resources();
+
 	template<typename T>
 	std::shared_ptr<T> LoadFromResources(std::string _path)
 	{

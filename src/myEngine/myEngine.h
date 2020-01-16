@@ -19,5 +19,6 @@
 #include "Exception.h"
 #include "Sound.h"
 #include "SoundComponent.h"
+#include "BoxCollider.h"
 
 #endif

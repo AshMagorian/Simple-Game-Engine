@@ -33,7 +33,7 @@ Texture::Texture(std::string path)
 	catch (Exception& e)
 	{
 		std::cout << "myEngine Exception: " << e.what() << std::endl;
-		path = "../src/myEngine/BlankColour.png";
+		path = "../src/myEngine/engineRes/BlankColour.png";
 		data = stbi_load(path.c_str(), &w, &h, &channels, 4);
 	}
 

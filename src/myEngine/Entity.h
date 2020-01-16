@@ -2,6 +2,8 @@
 #include <list>
 #include <string>
 #include <algorithm>
+#include <vector>
+#include "Exception.h"
 
 class Application;
 class Component;
@@ -10,6 +12,16 @@ class Transform;
 class Entity
 {
 	friend class Application;
+
+private:
+	std::weak_ptr<Application> application;
+	std::list<std::shared_ptr<Component>> components;
+	std::weak_ptr<Entity> self;
+	std::weak_ptr<Transform> transform;
+
+	void begin();
+	void tick();
+	void display();
 
 public:
 	Entity();
@@ -44,7 +56,12 @@ public:
 			}
 		}
 
-		throw std::exception();
+		throw Exception("Componenet not found");
+	}
+
+	std::list<std::shared_ptr<Component>> GetComponents()
+	{
+		return components;
 	}
 
 	std::shared_ptr<Transform> GetTransform()
@@ -52,13 +69,4 @@ public:
 		return transform.lock();
 	}
 
-private:
-	std::weak_ptr<Application> application;
-	std::list<std::shared_ptr<Component>> components;
-	std::weak_ptr<Entity> self;
-	std::weak_ptr<Transform> transform;
-
-	void begin();
-	void tick();
-	void display();
 };

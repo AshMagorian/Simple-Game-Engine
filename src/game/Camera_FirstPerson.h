@@ -10,7 +10,13 @@ private:
 	std::shared_ptr<Transform> m_Transform;
 	std::shared_ptr<Input> m_Input;
 
-	float m_movementSpeed = 0.1f;
+	glm::vec3 m_forwardVector;
+	glm::vec3 m_rightVector;
+
+	float m_yaw;
+	float m_pitch;
+
+	float m_movementSpeed = 10.0f;
 
 public:
 	Camera_FirstPerson() {}
