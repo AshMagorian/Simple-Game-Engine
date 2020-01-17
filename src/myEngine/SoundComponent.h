@@ -3,21 +3,33 @@
 #include "Component.h"
 
 class Sound;
-
+/**
+*This is a component which can be added to an entity. It contains the sound file stored in the Sound object.
+*It can then call play on the sound file when required
+*/
 class SoundComponent : public Component
 {
 private:
-	std::shared_ptr<Sound> m_soundSource;
-	bool m_playTrigger = false;
-	bool m_isPlaying = false;
+	std::shared_ptr<Sound> m_soundSource; ///< The sound resource
+	bool m_isPlaying = false; ///< Toggles playing the sound
 
 
 public:
+	/**
+	*\brief sets the sound resource
+	*/
 	void onInit(std::shared_ptr<Sound> _sound);
+	/**
+	*\brief Called every frame
+	*/
 	void onTick();
-	void onBegin();
+	/**
+	*\brief Plays the sound
+	*/
 	void Play();
-
-	void SetIsPlaying(bool _val) { m_isPlaying = _val; m_playTrigger = _val; }
+	/**
+	*\brief toggles the isPlaying bool
+	*/
+	void SetIsPlaying(bool _val) { m_isPlaying = _val;}
 };
 #endif

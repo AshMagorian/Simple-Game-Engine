@@ -12,11 +12,16 @@ Component::~Component()
 {
 
 }
-
+/**
+*\brief Returns the entity of this Component
+*/
 std::shared_ptr<Entity> Component::getEntity()
 {
 	return entity.lock();
 }
+/**
+*\brief A shortcut to return the Application
+*/
 std::shared_ptr<Application> Component::getApplication()
 {
 	return getEntity()->getApplication();

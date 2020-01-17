@@ -4,7 +4,9 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include <GL/glew.h>
-
+/**
+*The vertex buffer stores a particular type of data to be stored in vertex array
+*/
 class VertexBuffer
 {
 private:

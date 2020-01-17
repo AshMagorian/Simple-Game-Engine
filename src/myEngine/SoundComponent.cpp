@@ -2,16 +2,16 @@
 #include "myEngine.h"
 #include "Exception.h"
 
+/**
+*\brief sets the sound resource
+*/
 void SoundComponent::onInit(std::shared_ptr<Sound> _sound)
 {
 	m_soundSource = _sound;
 }
-
-void SoundComponent::onBegin()
-{
-
-}
-
+/**
+*\brief Called every frame. checks if isPlaying is set to true. Plays if true
+*/
 void SoundComponent::onTick()
 {
 	if (m_isPlaying == true)
@@ -21,6 +21,10 @@ void SoundComponent::onTick()
 	}
 }
 
+/**
+*\Sets the listener as the position of the camera and the source as the object containing the sound component.
+*Then plays the sound. Throws and catches an exception if the sound resource doesn't exist
+*/
 void SoundComponent::Play()
 {
 	GLuint sourceId = 0;
@@ -47,5 +51,4 @@ void SoundComponent::Play()
 	alSourcei(sourceId, AL_BUFFER, m_soundSource->GetId());
 
 	alSourcePlay(sourceId);
-
 }

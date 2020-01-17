@@ -85,6 +85,8 @@ add_executable(game
 	src/game/Camera_FirstPerson.cpp
 	src/game/SoundToggle.h
 	src/game/SoundToggle.cpp
+	src/game/SpinComponent.cpp
+	src/game/SpinComponent.h
 )
 
 target_link_libraries(game myEngine)

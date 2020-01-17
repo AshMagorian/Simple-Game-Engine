@@ -17,7 +17,10 @@ Texture::Texture(int width, int height)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
-
+/**
+*Loads the texture from teh path specified. If the file is not found then an exception is thrown and an error message 
+*displays in the log. A blank texture is then stored as the texture instead
+*/
 Texture::Texture(std::string path)
 {
 	int w = 0;
@@ -58,14 +61,4 @@ Texture::Texture(std::string path)
 	glGenerateMipmap(GL_TEXTURE_2D);
 	// Unbind the texture because we are done operating on it
 	glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-glm::vec2 Texture::getSize()
-{
-	return size;
-}
-
-GLuint Texture::getId()
-{
-	return id;
 }

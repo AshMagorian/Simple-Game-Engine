@@ -7,7 +7,10 @@
 #include <glm/ext.hpp>
 #include <iostream>
 
-
+/**
+*The file passed through contains the paths for both shader files. This is because to make 
+*Shaderprogram a resource it needed to take only one paramater as opposed to two
+*/
 ShaderProgram::ShaderProgram(std::string _path)
 {
 	std::string vertPath;
@@ -121,7 +124,9 @@ ShaderProgram::ShaderProgram(std::string _path)
 	glDetachShader(id, fragmentShaderId);
 	glDeleteShader(fragmentShaderId);
 }
-
+/**
+*\brief Draws the passed vertex array to the screen
+*/
 void ShaderProgram::Draw(std::shared_ptr<VertexArray> vertexArray)
 {
 	// Instruct OpenGL to use our shader program and our VAO
@@ -250,4 +255,3 @@ void ShaderProgram::SetUniform(std::string uniform, std::shared_ptr<Texture> tex
 	glUniform1i(uniformId, samplers.size() - 1);
 	glUseProgram(0);
 }
-

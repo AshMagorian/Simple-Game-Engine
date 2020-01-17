@@ -3,46 +3,49 @@
 
 #include <glm/ext.hpp>
 #include <iostream>
-
+/**
+*\brief Sets the transform and input variables
+*/
 void Camera_FirstPerson::onBegin()
 {
 	m_Transform = getEntity()->GetTransform();
 	m_Input = getApplication()->GetInput();
 }
-
+/**
+*\brief Calculates the forward vector and then updates the position by checking if the wasd keys are pressed
+*/
 void Camera_FirstPerson::onTick()
 {
-	// Calculate the new Front vector
-	//m_forwardVector.x = cos(glm::radians(m_Transform->GetRotation().y)) * cos(glm::radians(m_Transform->GetRotation().x));
-	//m_forwardVector.y = sin(glm::radians(m_Transform->GetRotation().x));
-	//m_forwardVector.z = sin(glm::radians(m_Transform->GetRotation().y)) * cos(glm::radians(m_Transform->GetRotation().x));
-	//m_forwardVector = glm::normalize(m_forwardVector);
-	//m_rightVector = glm::normalize(glm::cross(m_forwardVector, glm::vec3(0.0f, 1.0f, 0.0f)));
+	// create arbitary matrix
+	glm::mat4 t(1.0f);
+	// rotate it by angle (the camera’s Y rotation)
+	t = glm::rotate(t, glm::radians(m_Transform->GetRotation().y), glm::vec3(0, 1, 0));
+	// move forward 1 unit
+	t = glm::translate(t, glm::vec3(0, 0, 1));
+	// apply to an initial position
+	m_forwardVector = t * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+	// normalize to get the unit vector
+	m_forwardVector = glm::normalize(m_forwardVector);
+
 
 	if (m_Input->IsKey('w'))
 	{
-		m_Transform->SetPos(m_Transform->GetPos() + (m_movementSpeed * getApplication()->GetDeltaTime() * -glm::vec3 (0.0f, 0.0f, 1.0f)));
+		m_Transform->SetPos(m_Transform->GetPos() - (m_movementSpeed * getApplication()->GetDeltaTime() * m_forwardVector));
 	}
 	if (m_Input->IsKey('s'))
 	{
-		m_Transform->SetPos(m_Transform->GetPos() + (m_movementSpeed * getApplication()->GetDeltaTime() * glm::vec3(0.0f, 0.0f, 1.0f)));
+		m_Transform->SetPos(m_Transform->GetPos() + (m_movementSpeed * getApplication()->GetDeltaTime() * m_forwardVector));
 	}
-	if (m_Input->IsKey('a'))
+	if (m_Input->IsKey('a')) // rotate left
 	{
-		m_Transform->SetPos(m_Transform->GetPos() + (m_movementSpeed * getApplication()->GetDeltaTime() * -glm::vec3(1.0f, 0.0f, 0.0f)));
+		m_Transform->SetRotation(m_Transform->GetRotation() + glm::vec3(0.0f, (m_rotationSpeed * getApplication()->GetDeltaTime()), 0.0f));
+		//m_Transform->SetPos(m_Transform->GetPos() + (m_movementSpeed * getApplication()->GetDeltaTime() * -glm::vec3(1.0f, 0.0f, 0.0f)));
 	}
-	if (m_Input->IsKey('d'))
+	if (m_Input->IsKey('d')) // rotate right
 	{
-		m_Transform->SetPos(m_Transform->GetPos() + (m_movementSpeed * getApplication()->GetDeltaTime() * glm::vec3(1.0f, 0.0f, 0.0f)));
-	}
 
-
-	//std::cout << "delta x = " << (float)m_Input->GetDeltaMouseX() * getApplication()->GetDeltaTime() << ", delta y = " << (float)m_Input->GetDeltaMouseY() * getApplication()->GetDeltaTime() << std::endl;
-
-	//m_Transform->SetRotation(m_Transform->GetRotation() +	glm::vec3((float)m_Input->GetDeltaMouseY() * getApplication()->GetDeltaTime(),
-	//																(float)m_Input->GetDeltaMouseX() * getApplication()->GetDeltaTime(),
-	//																0.0f));
-
-	//std::cout << m_Transform->GetRotation().x << ", " << m_Transform->GetRotation().y << ", " << m_Transform->GetRotation().z << std::endl;
+		m_Transform->SetRotation(m_Transform->GetRotation() + glm::vec3(0.0f, -(m_rotationSpeed * getApplication()->GetDeltaTime()), 0.0f));
+		//m_Transform->SetPos(m_Transform->GetPos() + (m_movementSpeed * getApplication()->GetDeltaTime() * glm::vec3(1.0f, 0.0f, 0.0f)));
+	} 
 
 }

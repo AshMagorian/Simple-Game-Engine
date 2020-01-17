@@ -4,12 +4,16 @@
 #include "Exception.h"
 
 #include <iostream>
-
+/**
+*\brief Calls the Load function
+*/
 Sound::Sound(std::string _path)
 {
 	Load(_path);
 }
-
+/**
+*\brief Loads the sound from the path provided
+*/
 void Sound::Load(std::string _path)
 {
 	ALenum format = 0;
@@ -23,7 +27,9 @@ void Sound::Load(std::string _path)
 	alBufferData(id, format, &bufferData[0],
 		static_cast<ALsizei>(bufferData.size()), freq);
 }
-
+/**
+*\brief Reads the ogg file and passes the information into the buffer
+*/
 void Sound::LoadOggFile(const std::string& fileName, std::vector<char>& buffer,
 	ALenum &format, ALsizei &freq)
 {

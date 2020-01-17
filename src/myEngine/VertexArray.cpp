@@ -72,7 +72,9 @@ VertexArray::VertexArray()
 	}
 
 }
-
+/**
+*\brief Reads the model file and stores the data
+*/
 VertexArray::VertexArray(std::string path)
 {
 	glGenVertexArrays(1, &id);
@@ -173,7 +175,9 @@ VertexArray::VertexArray(std::string path)
 	if (texCoordBuffer) SetBuffer("in_TexCoord", texCoordBuffer);
 	if (normalBuffer) SetBuffer("in_Normal", normalBuffer);
 }
-
+/**
+*\brief Stores a buffer into the vector. It's position in teh vector depends on it's attrbute which is passed through
+*/
 void VertexArray::SetBuffer(std::string attribute, std::shared_ptr<VertexBuffer> buffer)
 {
 	

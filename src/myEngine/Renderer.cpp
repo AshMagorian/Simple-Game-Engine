@@ -15,17 +15,18 @@ Renderer::~Renderer()
 {
 
 }
-
+/**
+*\brief Stores the 3 main attributes for the Renderer component when initialised
+*/
 void Renderer::onInit(std::shared_ptr<ShaderProgram> _shader, std::shared_ptr<VertexArray> _va, std::shared_ptr<Texture> _tex)
 {
-	m_id = "Renderer";
-
 	m_shaderProgram = _shader;
 	m_va = _va;
 	m_tex = _tex;
-
 }
-
+/**
+*\brief Updates the uniforms for the ShaderProgram every frame using data from teh main camera(Only if the shader program exists)
+*/
 void Renderer::onTick()
 {
 	if (m_shaderProgram)
@@ -34,7 +35,9 @@ void Renderer::onTick()
 		m_shaderProgram->SetUniform("in_View", getApplication()->GetCamera()->GetViewMatrix());
 	}
 }
-
+/**
+*\brief Draws the model and texture using the shader program (Only if all 3 attributes exist)
+*/
 void Renderer::onDisplay()
 {
 	if (m_shaderProgram && m_tex && m_va)
@@ -43,5 +46,4 @@ void Renderer::onDisplay()
 		m_shaderProgram->SetUniform("in_Texture", m_tex);
 		m_shaderProgram->Draw(m_va);
 	}
-
 }

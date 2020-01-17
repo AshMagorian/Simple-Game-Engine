@@ -2,11 +2,9 @@
 
 #include <glm/ext.hpp>
 
-void Transform::onInit()
-{
-
-}
-
+/**
+*\brief Uses the position, rotation and scale to create a matrix and then returns it as the model matrix
+*/
 glm::mat4 Transform::GetModelMatrix()
 {
 	m_model = glm::mat4(1.0f);

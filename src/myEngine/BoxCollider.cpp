@@ -3,28 +3,25 @@
 #include "Transform.h"
 #include "Application.h"
 #include <vector>
-
+/**
+*\Sets the size as the scale of the entity and sets the last position as the current position of the entity
+*/
 void BoxCollider::onInit()
 {
-	m_size = glm::vec3(1.0f, 1.0f, 1.0f);
+	m_size = getEntity()->GetTransform()->GetScale();
 	m_lastPosition = getEntity()->GetTransform()->GetPos();
 }
-
-void BoxCollider::SetOffset(glm::vec3 _offset)
-{
-	m_offset = _offset;
-}
-
-void BoxCollider::SetSize(glm::vec3 _size)
-{
-	m_size = _size;
-}
-
+/**
+*\brief Calls the CollideBox function every tick
+*/
 void BoxCollider::onTick()
 {
 	CollideBox();
 }
-
+/**
+*\brief Gets every entity with the BoxCollider Component and calls the GetCollisionResponse function to check which ones 
+*collide with each other
+*/
 void BoxCollider::CollideBox()
 {
 	std::vector<std::shared_ptr<Entity> > bces;
@@ -50,7 +47,10 @@ void BoxCollider::CollideBox()
 		m_lastPosition = np;
 	}
 }
-
+/**
+*\brief Checks collision in the x, y and z axis of each box collider, if true in all of these circumstances then a collision
+*has occured and returns true
+*/
 bool BoxCollider::IsColliding(glm::vec3 _position, glm::vec3 _size)
 {
 	glm::vec3 a = getEntity()->GetTransform()->GetPos() + m_offset;
@@ -105,7 +105,10 @@ bool BoxCollider::IsColliding(glm::vec3 _position, glm::vec3 _size)
 
 	return true;
 }
-
+/**
+*\brief Checks for a collision, if a collision occurs then the object is moved slightly and there is another collision check.
+*This loops until IsColliding returns false
+*/
 glm::vec3 BoxCollider::GetCollisionResponse(glm::vec3 _position, glm::vec3 _size)
 {
 	float amount = 0.1f;
