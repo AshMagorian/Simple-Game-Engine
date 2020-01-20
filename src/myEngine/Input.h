@@ -24,10 +24,10 @@ private:
 	std::vector<int> m_pressedKeys; ///<Keys which have been pressed this frame
 	std::vector<int> m_releasedKeys; ///< Keys which have been released this frame
 
-	int m_deltaMouseX; ///< The amount the mouse has moved in the x axis this frame
-	int m_deltaMouseY; ///< The amount the mouse has moved in the y axis this frame
-	int m_mouseX; ///< the current mouse x position
-	int m_mouseY; ///< the current mouse y position
+	int m_deltaMouseX = 0; ///< The amount the mouse has moved in the x axis this frame
+	int m_deltaMouseY = 0; ///< The amount the mouse has moved in the y axis this frame
+	int m_mouseX = 0; ///< the current mouse x position
+	int m_mouseY = 0; ///< the current mouse y position
 
 	SDL_Event event = { 0 }; ///< Stores the PollEvent
 

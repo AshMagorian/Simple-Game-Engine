@@ -106,6 +106,10 @@ void Application::run()
 		*\brief Updates the state of the input object
 		*/
 		if (!m_input->UpdateKeys()) { stop(); }
+
+		SDL_WarpMouseInWindow(window, 320, 240); // moves the mouse to the middle of the window
+		SDL_ShowCursor(SDL_DISABLE); // Hides the cursor
+
 		/**
 		*\brief Loops through and updates all entites. Catches any exceptions thrown
 		*/
