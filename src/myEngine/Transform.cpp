@@ -11,8 +11,9 @@ glm::mat4 Transform::GetModelMatrix()
 
 	m_model = glm::translate(m_model, m_position);
 	
-	m_model = glm::rotate(m_model, glm::radians(m_rotation.x), glm::vec3(1, 0, 0));
+
 	m_model = glm::rotate(m_model, glm::radians(m_rotation.y), glm::vec3(0, 1, 0));
+	m_model = glm::rotate(m_model, glm::radians(m_rotation.x), glm::vec3(1, 0, 0));
 	m_model = glm::rotate(m_model, glm::radians(m_rotation.z), glm::vec3(0, 0, 1));
 
 	m_model = glm::scale(m_model, m_scale);
