@@ -70,9 +70,13 @@ std::shared_ptr<Application> const Application::init()
 		}
 		app->GetResourceManager()->CreateResource<VertexArray>("../src/myEngine/engineRes/Cube.obj");
 		app->GetResourceManager()->CreateResource<ShaderProgram>("../src/resources/shaders/simpleTex.txt");
+		app->GetResourceManager()->CreateResource<ShaderProgram>("../src/resources/shaders/lightingShader.txt");
 		app->GetResourceManager()->CreateResource<Texture>("../src/myEngine/engineRes/Grey.png");
+		app->GetResourceManager()->CreateMaterial("defaultMaterial", app->GetResourceManager()->LoadFromResources<Texture>("../src/myEngine/engineRes/Grey.png"), 32.0f);
 	}
 	catch (Exception& e) { std::cout << "myEngine Exception: " << e.what() << std::endl; }
+
+	app->GetLightManager()->AddShaderProgram(app->GetResourceManager()->LoadFromResources<ShaderProgram>("../src/resources/shaders/lightingShader.txt"));
 
 	return app;
 }
@@ -85,6 +89,8 @@ void Application::run()
 
 	int windowWidth = 0;
 	int windowHeight = 0;
+
+	m_lightManager->m_application = self;
 
 	while (running)
 	{
@@ -109,6 +115,8 @@ void Application::run()
 
 		SDL_WarpMouseInWindow(window, 320, 240); // moves the mouse to the middle of the window
 		SDL_ShowCursor(SDL_DISABLE); // Hides the cursor
+
+		m_lightManager->UpdateLightShaderValues();
 
 		/**
 		*\brief Loops through and updates all entites. Catches any exceptions thrown
@@ -191,9 +199,9 @@ std::shared_ptr<Entity> Application::MakeCube()
 	entity->self = entity;
 	entity->application = self;
 	entity->transform = entity->addComponent<Transform>();
-	entity->addComponent<Renderer>(m_resourceManager->LoadFromResources<ShaderProgram>("../src/resources/shaders/simpleTex.txt"),
+	entity->addComponent<Renderer>(m_resourceManager->LoadFromResources<ShaderProgram>("../src/resources/shaders/lightingShader.txt"),
 									m_resourceManager->LoadFromResources<VertexArray>("../src/myEngine/engineRes/Cube.obj"),
-									m_resourceManager->LoadFromResources<Texture>("../src/myEngine/engineRes/Grey.png"));
+									m_resourceManager->LoadFromResources<Material>("defaultMaterial"));
 	entities.push_back(entity);
 	return entity;
 }

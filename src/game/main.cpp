@@ -20,14 +20,17 @@ int main(int argc, char *argv[])
 	application->GetResourceManager()->CreateResource <VertexArray>("../src/resources/models/curuthers.obj");
 	application->GetResourceManager()->CreateResource<Sound>("../src/resources/audio/dixie_horn.ogg");
 
+	application->GetResourceManager()->CreateMaterial("curuthersMat", application->GetResourceManager()->LoadFromResources<Texture>("../src/resources/textures/curuthers_diffuse.png"), 32.0f);
+	application->GetResourceManager()->CreateMaterial("yellowMat", application->GetResourceManager()->LoadFromResources<Texture>("../src/resources/textures/yellow.png"), 32.0f);
+	application->GetResourceManager()->CreateMaterial("orangeMat", application->GetResourceManager()->LoadFromResources<Texture>("../src/resources/textures/orange.png"), 32.0f);
 	/**
 	*Creates the spinning model in the middle of the level
 	*/
 	std::shared_ptr<Entity> model = application->addEntity();
 	model->addComponent<Renderer>();
 	model->GetComponent<Renderer>()->SetMesh(application->GetResourceManager()->LoadFromResources<VertexArray>("../src/resources/models/curuthers.obj"));
-	model->GetComponent<Renderer>()->SetTexture(application->GetResourceManager()->LoadFromResources<Texture>("../src/resources/textures/curuthers_diffuse.png"));
-	model->GetComponent<Renderer>()->SetShader(application->GetResourceManager()->LoadFromResources<ShaderProgram>("../src/resources/shaders/simpleTex.txt"));
+	model->GetComponent<Renderer>()->SetMaterial(application->GetResourceManager()->LoadFromResources<Material>("curuthersMat"));
+	model->GetComponent<Renderer>()->SetShader(application->GetResourceManager()->LoadFromResources<ShaderProgram>("../src/resources/shaders/lightingShader.txt"));
 	model->addComponent<BoxCollider>();
 	model->GetTransform()->SetScale(glm::vec3(0.5f, 0.5f, 0.5f));
 	model->GetTransform()->SetPos(glm::vec3(0.0f, 0.1f, 0.0f));
@@ -38,14 +41,14 @@ int main(int argc, char *argv[])
 	*/
 	std::shared_ptr<Entity> farWall = application->MakeCube();
 	farWall->GetTransform()->SetPos(glm::vec3(0.0f, 0.0f, -15.0f));
-	farWall->GetComponent<Renderer>()->SetTexture(application->GetResourceManager()->LoadFromResources<Texture>("../src/resources/textures/yellow.png"));
+	farWall->GetComponent<Renderer>()->SetMaterial(application->GetResourceManager()->LoadFromResources<Material>("yellowMat"));
 	farWall->GetTransform()->SetScale(glm::vec3(15.0f, 1.0f, 1.0f));
 	farWall->addComponent<BoxCollider>();
 	/**
 	*Creates the back wall of the stage
 	*/
 	std::shared_ptr<Entity> backWall = application->MakeCube();
-	backWall->GetComponent<Renderer>()->SetTexture(application->GetResourceManager()->LoadFromResources<Texture>("../src/resources/textures/yellow.png"));
+	backWall->GetComponent<Renderer>()->SetMaterial(application->GetResourceManager()->LoadFromResources<Material>("yellowMat"));
 	backWall->GetTransform()->SetPos(glm::vec3(0.0f, 0.0f, 15.0f));
 	backWall->GetTransform()->SetScale(glm::vec3(15.0f, 1.0f, 1.0f));
 	backWall->addComponent<BoxCollider>();
@@ -67,7 +70,7 @@ int main(int argc, char *argv[])
 	*Creates the floor of the stage
 	*/
 	std::shared_ptr<Entity> floor = application->MakeCube();
-	floor->GetComponent<Renderer>()->SetTexture(application->GetResourceManager()->LoadFromResources<Texture>("../src/resources/textures/orange.png"));
+	floor->GetComponent<Renderer>()->SetMaterial(application->GetResourceManager()->LoadFromResources<Material>("orangeMat"));
 	floor->GetTransform()->SetPos(glm::vec3(0.0f, -1.5f, 0.0f));
 	floor->GetTransform()->SetScale(glm::vec3(15.0f, 0.5f, 15.0f));
 

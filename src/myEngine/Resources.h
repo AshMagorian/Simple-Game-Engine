@@ -7,6 +7,7 @@
 
 #include "Resource.h"
 #include "Exception.h"
+#include "Material.h"
 
 /**
 *The resources class Creates resources and then stores them in a list. This list can then be accessed to load multiple of the
@@ -78,5 +79,8 @@ public:
 		return resource;
 
 	}
+
+	std::shared_ptr<Material> CreateMaterial(std::string _name, std::shared_ptr<Texture> _diff, std::shared_ptr<Texture> _spec, float _shine);
+	std::shared_ptr<Material> CreateMaterial(std::string _name, std::shared_ptr<Texture> _diff, float _shine);
 };
 #endif

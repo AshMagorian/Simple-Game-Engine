@@ -19,6 +19,7 @@ class Environment;
 class Input;
 class Resources;
 class Resource;
+class Lights;
 /**
 *The Application class is where all of the entities in the game are stored. the application initialises all of the libraries required to run the
 *game and then runs the game loop. Almost every class in the engine has direct access to the app so it is a way of linking everything together
@@ -33,7 +34,8 @@ private:
 	std::shared_ptr<Camera> m_mainCamera = std::make_shared<Camera>(); ///< A pointer to the main camera in the game
 	std::shared_ptr<Environment> m_time = std::make_shared<Environment>(); ///< A pointer to the environment object so DeltaTime can be accessed
 	std::shared_ptr<Input> m_input = std::make_shared<Input>(); ///< A Pointer to the Input object so that inputs can be accessed
-	std::shared_ptr <Resources> m_resourceManager = std::make_shared<Resources>(); ///< A pointer to the resource manager for accesibility
+	std::shared_ptr<Resources> m_resourceManager = std::make_shared<Resources>(); ///< A pointer to the resource manager for accesibility
+	std::shared_ptr<Lights> m_lightManager = std::make_shared<Lights>();
 
 	SDL_Window *window; ///< The SDL window to be created
 	ALCdevice* device; ///< Audio device to be created
@@ -72,6 +74,8 @@ public:
 	*\brief Returns the stored resource manager object
 	*/
 	std::shared_ptr<Resources> GetResourceManager() { return m_resourceManager; }
+
+	std::shared_ptr<Lights> GetLightManager() { return m_lightManager; }
 	/**
 	*\brief Returns the DeltaTime value calculated in the Enviroment object
 	*/

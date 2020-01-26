@@ -148,6 +148,7 @@ void ShaderProgram::Draw(std::shared_ptr<VertexArray> vertexArray)
 	}
 	glDrawArrays(GL_TRIANGLES, 0, vertexArray->GetVertexCount());
 	
+	//Unbinds the textures for all samplers
 	for (size_t i = 0; i < samplers.size(); i++)
 	{
 		glActiveTexture(GL_TEXTURE0 + i);
@@ -233,7 +234,7 @@ void ShaderProgram::SetUniform(std::string uniform, std::shared_ptr<Texture> tex
 	{
 		throw std::exception();
 	}
-
+	//Tries to find the correct sampler in the vector
 	for (size_t i = 0; i < samplers.size(); i++)
 	{
 		if (samplers.at(i).id == uniformId)
@@ -246,6 +247,7 @@ void ShaderProgram::SetUniform(std::string uniform, std::shared_ptr<Texture> tex
 			return;
 		}
 	}
+	//If the sampler isn't found then a new sampler is made and pushed back
 	Sampler s;
 	s.id = uniformId;
 	s.texture = texture;

@@ -8,6 +8,7 @@ class ShaderProgram;
 class VertexArray;
 class Texture;
 class Camera;
+class Material;
 /**
 *Renderer is a component which stores the data necessary to draw an object to the screen
 */
@@ -17,7 +18,8 @@ private:
 
 	std::shared_ptr<ShaderProgram> m_shaderProgram; ///< The shader program which will be used to draw the model
 	std::shared_ptr<VertexArray> m_va; ///< The model to be drawn
-	std::shared_ptr<Texture> m_tex; ///< the texture of the model
+	//std::shared_ptr<Texture> m_tex; ///< the texture of the model
+	std::shared_ptr<Material> m_material; ///< the material of the model
 	std::shared_ptr<Camera> m_mainCamera; ///< The main camera of the scene
 
 public:
@@ -30,7 +32,7 @@ public:
 	/**
 	*\brief Stores the 3 main attributes for the Renderer component when initialised
 	*/
-	void onInit(std::shared_ptr<ShaderProgram> _shader, std::shared_ptr<VertexArray> _va, std::shared_ptr<Texture> _tex);
+	void onInit(std::shared_ptr<ShaderProgram> _shader, std::shared_ptr<VertexArray> _va, std::shared_ptr<Material> _mat);
 	/**
 	*\brief Updates the uniforms for the ShaderProgram every frame
 	*/
@@ -47,10 +49,16 @@ public:
 	/**
 	*\brief Sets the texture
 	*/
-	void SetTexture(std::shared_ptr<Texture> _tex) { m_tex = _tex; }
+	//void SetTexture(std::shared_ptr<Texture> _tex) { m_tex = _tex; }
+
+	/**
+	*\brief Sets the material
+	*/
+	void SetMaterial(std::shared_ptr<Material> _mat) { m_material = _mat; }
 	/**
 	*\brief Sets the shader
 	*/
 	void SetShader(std::shared_ptr<ShaderProgram> _shader) { m_shaderProgram = _shader; }
 
+	std::shared_ptr<Material> GetMaterial() { return m_material; }
 };

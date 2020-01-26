@@ -20,5 +20,9 @@
 #include "Sound.h"
 #include "SoundComponent.h"
 #include "BoxCollider.h"
+#include "Material.h"
+#include "Lights.h"
+#include "PointLight.h"
+#include "SpotLight.h"
 
 #endif
