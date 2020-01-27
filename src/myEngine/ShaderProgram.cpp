@@ -108,7 +108,7 @@ ShaderProgram::ShaderProgram(std::string _path)
 	glBindAttribLocation(id, 0, "in_Position");
 	glBindAttribLocation(id, 1, "in_Color");
 	glBindAttribLocation(id, 2, "in_TexCoord");
-	//glBindAttribLocation(id, 3, "in_Normal");
+	glBindAttribLocation(id, 3, "in_Normal");
 
 	// Perform the link and check for faliure
 	glLinkProgram(id);
